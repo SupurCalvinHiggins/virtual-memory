@@ -1,8 +1,9 @@
 #pragma once
 
-#include <vector>
 #include <cstdint>
 #include <cstring>
+#include <cassert>
+#include <algorithm>
 
 class CircularBuffer {
 

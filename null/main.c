@@ -1,8 +1,9 @@
-#include <sys/mman.h>
-#include <unistd.h>
-#include <stdint.h>
 #include <assert.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <unistd.h>
+#include <sys/mman.h>
+#include <sys/types.h>
 
 void* safe_mmap(void* addr, size_t len, int prot, int flags, int fd, off_t offset) {
     void* ret = mmap(addr, len, prot, flags, fd, offset);
