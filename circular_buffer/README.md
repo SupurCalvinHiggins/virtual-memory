@@ -1,0 +1,1 @@
+A C++ implementation of the virtual memory circular buffer described [here](https://lo.calho.st/posts/black-magic-buffer/).
