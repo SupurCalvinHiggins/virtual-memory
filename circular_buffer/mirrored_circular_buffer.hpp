@@ -48,32 +48,9 @@ public:
         safe_ftruncate(fd, capacity);
 
         // Create and mirror a virtual buffer.
-        m_buffer = static_cast<uint8_t*>(
-            safe_mmap(
-                NULL, 
-                capacity * 2, 
-                PROT_NONE, 
-                MAP_PRIVATE | MAP_ANONYMOUS, 
-                -1, 
-                0
-            )
-        );
-        safe_mmap(
-            m_buffer, 
-            capacity, 
-            PROT_READ | PROT_WRITE, 
-            MAP_SHARED | MAP_FIXED, 
-            fd, 
-            0
-        );
-        safe_mmap(
-            m_buffer + capacity, 
-            capacity, 
-            PROT_READ | PROT_WRITE, 
-            MAP_SHARED | MAP_FIXED, 
-            fd, 
-            0
-        );
+        m_buffer = (uint8_t*)safe_mmap(NULL, capacity * 2, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        safe_mmap(m_buffer, capacity, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FIXED, fd, 0);
+        safe_mmap(m_buffer + capacity, capacity, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_FIXED, fd, 0);
     }
 
     void push(uint8_t* data, size_type size) {

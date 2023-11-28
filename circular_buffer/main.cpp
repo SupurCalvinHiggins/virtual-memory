@@ -10,11 +10,13 @@ constexpr size_t buf_size = page_size;
 constexpr size_t data_size = buf_size - 1;
 
 static void BM_CircularBuffer(benchmark::State& state) {
+    // Create some test data.
     uint8_t data[buf_size];
     for (size_t i = 0; i < buf_size; ++i) {
         data[i] = i;
     }
 
+    // Test reading and writing to a circular buffer. 
     CircularBuffer buf(buf_size);
     for (auto _ : state) {
         for (int i = 0; i < state.range(0); ++i) {
@@ -27,11 +29,13 @@ static void BM_CircularBuffer(benchmark::State& state) {
 }
 
 static void BM_MirroredCircularBuffer(benchmark::State& state) {
+    // Create some test data.
     uint8_t data[buf_size];
     for (size_t i = 0; i < buf_size; ++i) {
         data[i] = i;
     }
 
+    // Test reading and writing to a mirrored circular buffer. 
     MirroredCircularBuffer buf(buf_size);
     for (auto _ : state) {
         for (int i = 0; i < state.range(0); ++i) {

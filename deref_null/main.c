@@ -11,7 +11,8 @@ void* safe_mmap(void* addr, size_t len, int prot, int flags, int fd, off_t offse
     return ret;
 }
 
-void map_null(void) {
+int main() {
+    // Allocate memory with a NULL pointer.
     const int page_size = getpagesize();
     safe_mmap(
         NULL, 
@@ -21,10 +22,6 @@ void map_null(void) {
         -1,
         0
     );
-}
-
-int main() {
-    map_null();
 
     // Write to NULL.
     *(uint64_t*)NULL = 42;

@@ -12,19 +12,22 @@
 constexpr size_t buf_size = (1024 * 4096) / sizeof(uint64_t);
 
 static void BM_Malloc(benchmark::State& state) {
+    // Allocate a "normal" array with malloc.
     uint64_t* data = (uint64_t*)malloc(buf_size * sizeof(uint64_t));
     for (size_t i = 0; i < buf_size; ++i) {
         data[i] = i;
     }
 
+    // Benchmark reading the entire array.
     for (auto _ : state) {
         for (size_t i = 0; i < buf_size; ++i) {
-		benchmark::DoNotOptimize(data[i]);
-	}
+            benchmark::DoNotOptimize(data[i]);
+        }
     }
 }
 
 static void BM_HugePage(benchmark::State& state) {
+    // Allocate a "huge page" array.
     uint64_t* data = (uint64_t*)mmap(
         NULL,
         buf_size * sizeof(uint64_t),
@@ -43,10 +46,11 @@ static void BM_HugePage(benchmark::State& state) {
         data[i] = i;
     }
 
+    // Benchmark reading the entire array.
     for (auto _ : state) {
         for (size_t i = 0; i < buf_size; ++i) {
-		benchmark::DoNotOptimize(data[i]);
-	}
+            benchmark::DoNotOptimize(data[i]);
+        }
     }
 }
 
