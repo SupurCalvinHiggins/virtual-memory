@@ -25,6 +25,12 @@ void map_null(void) {
 
 int main() {
     map_null();
+
+    // Write to NULL.
+    *(uint64_t*)NULL = 42;
+    printf("*NULL = %lu\n", *(uint64_t*)NULL);
+
+    // Make NULL into printf.
     *(uintptr_t*)NULL = (uintptr_t)&printf;
     (*((int (**)(const char*, ...))NULL))("Hello, World!\n");
 }
