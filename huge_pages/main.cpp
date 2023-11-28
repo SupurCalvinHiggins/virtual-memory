@@ -36,8 +36,7 @@ static void BM_HugePage(benchmark::State& state) {
 
     if (data == MAP_FAILED) {
         perror("mmap");
-        fprintf(stderr, "Error: %s\n", strerror(errno));
-        exit(EXIT_FAILURE);
+        abort();
     }
 
     for (size_t i = 0; i < buf_size; ++i) {
